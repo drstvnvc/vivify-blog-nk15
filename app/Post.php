@@ -10,7 +10,12 @@ class Post extends Model
 
     public static function unpublished()
     {
-        return self::with('comments')->where('is_published', false);
+        return self::with('comments', 'user')->where('is_published', false);
+    }
+
+    public static function published()
+    {
+        return self::with('comments', 'user')->where('is_published', true);
     }
 
     public function comments()
@@ -18,7 +23,8 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

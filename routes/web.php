@@ -27,6 +27,8 @@ Route::group([ 'middleware' => 'auth'], function() {
     Route::post('/posts', [PostController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('createComment');
+
+    Route::get('/authors/{author}', [PostController::class, 'getAuthorsPosts'])->name('author');
 });
 
 Route::group([ 'middleware' => 'guest'], function() {

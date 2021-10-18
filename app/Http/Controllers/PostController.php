@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\CreatePostRequest;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::unpublished()->get();
+        // info('Post controller index method');
+        // DB::listen(function ($query) {
+        //     info($query->sql);
+        // });
+
+        $posts = Post::published()->get();
 
         return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post)
     {
-        if($post->is_published) {
+        if (!$post->is_published) {
             throw new ModelNotFoundException;
         }
 
@@ -61,5 +68,11 @@ class PostController extends Controller
         // ]);
 
         return redirect('/posts');
+    }
+
+    public function getAuthorsPosts(User $author) {
+        $posts = $author->posts()->where('is_published', true)->get();
+
+        return view('posts.index', compact('posts'));
     }
 }
