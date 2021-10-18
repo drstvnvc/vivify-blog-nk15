@@ -13,7 +13,7 @@
  
     <h5>Comments</h5>
         @forelse($post->comments as $comment)
-            {{ $comment->body }}
+            <div>{{ $comment->body }}</div>
         @empty
             <span>No comments</span>
         @endforelse
