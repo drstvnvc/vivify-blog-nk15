@@ -49,7 +49,16 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        $newPost = Post::create($data);
+        // $newPost = Post::create($data);
+
+        $newPost = auth()->user()->posts()->create($data);
+
+        // $newPost = Post::create([
+        //     'title' => $request->get('title'),
+        //     'body' => $request->get('body'),
+        //     'is_published' => $request->get('is_published'),
+        //     'user_id' => auth()->user()->id,
+        // ]);
 
         return redirect('/posts');
     }
