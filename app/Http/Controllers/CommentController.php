@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\CommentRequest;
@@ -14,13 +15,11 @@ class CommentController extends Controller
     public function store(Post $post, CommentRequest $request)
     {
         $data = $request->validated();
+        $data['user_id'] = auth()->id();
         $comment = $post->comments()->create($data);
 
         Mail::to($post->user)->send(
-            new CommentReceived(
-                auth()->user(),
-                $comment,
-            )
+            new CommentReceived($comment)
         );
 
         return back();

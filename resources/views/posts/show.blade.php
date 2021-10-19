@@ -13,7 +13,12 @@
  
     <h5>Comments</h5>
         @forelse($post->comments as $comment)
-            <div>{{ $comment->body }}</div>
+            <div>
+                <div>{{$comment->user->name}}</div>
+                <blockquote>{{ $comment->body }}</blockquote>
+                <small>{{$comment->created_at}}</small>
+            </div>
+            <hr />
         @empty
             <span>No comments</span>
         @endforelse
@@ -21,7 +26,7 @@
     <form class="mt-3" action="{{ route('createComment', ['post' => $post->id]) }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="body">Add commnet:</label>
+            <label for="body">Add comment:</label>
             <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
             @error('body')
                 <div class="alert alert-danger">{{ $message }}</div>

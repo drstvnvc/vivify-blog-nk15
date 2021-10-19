@@ -14,25 +14,36 @@ class PostController extends Controller
     public function index()
     {
         // info('Post controller index method');
-        // DB::listen(function ($query) {
-        //     info($query->sql);
-        // });
+        DB::listen(function ($query) {
+            info($query->sql);
+        });
 
         // $posts = Post::published()->get();
         $posts = Post::published()->paginate(15);
+
+
+        // $users = User::with(['posts' => function ($qb) {
+        //     $qb->where('is_published', true);
+        // }])
+        //     ->where('email', 'like', '%@%')->get();
+        // echo $users;
+
 
         return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post)
     {
+        DB::listen(function ($query) {
+            info($query->sql);
+        });
         if (!$post->is_published) {
             throw new ModelNotFoundException;
         }
 
-        $post->load(['comments']);
-
-        info($post);
+        $post->load(['comments.user' => function ($qb) {
+            $qb->select(['users.id', 'users.name']);
+        }]);
 
         // $post = Post::with('comments')->findOrFail($post);
 
@@ -46,7 +57,7 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(CreatePostRequest $request) 
+    public function store(CreatePostRequest $request)
     {
         // $post = new Post;
         // $post->title = $request->get('title');
@@ -71,7 +82,8 @@ class PostController extends Controller
         return redirect('/posts');
     }
 
-    public function getAuthorsPosts(User $author) {
+    public function getAuthorsPosts(User $author)
+    {
         $posts = $author->posts()->where('is_published', true)->paginate(15);
 
         return view('posts.index', compact('posts'));
