@@ -18,7 +18,8 @@ class PostController extends Controller
         //     info($query->sql);
         // });
 
-        $posts = Post::published()->get();
+        // $posts = Post::published()->get();
+        $posts = Post::published()->paginate(15);
 
         return view('posts.index', compact('posts'));
     }
@@ -71,7 +72,7 @@ class PostController extends Controller
     }
 
     public function getAuthorsPosts(User $author) {
-        $posts = $author->posts()->where('is_published', true)->get();
+        $posts = $author->posts()->where('is_published', true)->paginate(15);
 
         return view('posts.index', compact('posts'));
     }
