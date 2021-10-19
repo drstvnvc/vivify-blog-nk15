@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\RequestCounterMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ Route::get('/', function () {
     return redirect('/posts');
 });
 
-Route::group([ 'middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/posts', [PostController::class, 'index']);
     Route::get('/posts/create', [PostController::class, 'create']);
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
@@ -31,17 +32,9 @@ Route::group([ 'middleware' => 'auth'], function() {
     Route::get('/authors/{author}', [PostController::class, 'getAuthorsPosts'])->name('author');
 });
 
-Route::group([ 'middleware' => 'guest'], function() {
+Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'getRegisterForm']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/login', [AuthController::class, 'getLoginBlade'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
-
-
-
-
-
-
-
-
