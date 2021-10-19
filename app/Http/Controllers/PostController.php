@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Tag;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\CreatePostRequest;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +54,8 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        $tags = Tag::all();
+        return view('posts.create', compact('tags'));
     }
 
     public function store(CreatePostRequest $request)
@@ -72,6 +73,7 @@ class PostController extends Controller
 
         $newPost = auth()->user()->posts()->create($data);
 
+        $newPost->tags()->attach($data['tags']); // mozemo koristiti sync umjesto attach
         // $newPost = Post::create([
         //     'title' => $request->get('title'),
         //     'body' => $request->get('body'),
@@ -79,7 +81,7 @@ class PostController extends Controller
         //     'user_id' => auth()->user()->id,
         // ]);
 
-        return redirect('/posts');
+        return redirect(route('post', ['post' => $newPost]));
     }
 
     public function getAuthorsPosts(User $author)
