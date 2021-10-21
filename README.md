@@ -1,61 +1,38 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel summary
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Dan 1
+- Instalacija composer alata: https://getcomposer.org/download/
+- Instalacija laravel installera i kreiranje novog projekta: https://laravel.com/docs/7.x/installation
+- Kreiranje about stranice: kreiranje view-a (blade template), kreiranje rute u `routes/web.php` hvata request i vraća view https://laravel.com/docs/7.x/views
+- Prosleđivanje podataka u view: https://laravel.com/docs/7.x/views#passing-data-to-views
+- Povezivanje sa bazom podataka (unošenje usernamea, passworda i imena baze u .env fajl za konekciju na bazu podataka), pokretanje inicijalnih migracija komandom `php artisan migrate`
+- Generisanje nove migracije komandom `php artisan make:migration create_table_naziv_tabele`https://laravel.com/docs/7.x/migrations#introduction i pokretanje migracije komandom `php artisan migrate`
+### Dan 2
+- Generisanje kontrolera komandom `php artisan make:controller NazivKontrolera`: https://laravel.com/docs/7.x/controllers
+- Generisanje model klase, upotreba modela za slanje kverija ka bazi (Eloquent model, query builder itd): https://laravel.com/docs/7.x/eloquent
+- Rutiranje, imenovane rute: https://laravel.com/docs/7.x/routing
+- Kreiranje `layouts/app.blade.php` viewa koji definiše placeholdere za sekcije direktivom `@yields`. Ovaj view nasleđujemo u drugim viewovima i "uglavljujemo" sekcije upotrebom direktive `@section`: https://laravel.com/docs/7.x/blade#extending-blade
+- Instalacija Bootstrapa i upotreba u viewovima: https://laravel.com/docs/7.x/frontend#introduction https://getbootstrap.com/docs/4.5/getting-started/introduction/
+### Dan 4
+- Forme za kreiranje novih objekata (redova u tabeli): https://laravel.com/docs/7.x/blade#forms 
+- Upotreba bootstrapa za stilizovanje forme: https://getbootstrap.com/docs/4.0/components/forms/
+- Insert i update u bazu upotrebom metoda Eloquent model klase (save vs mass assignment - fillable niz u klasi): https://laravel.com/docs/7.x/eloquent#inserting-and-updating-models
+- Validacija podataka iz forme upotrebom `$request->validate($rules)` metode https://laravel.com/docs/7.x/validation#quick-writing-the-validation-logic
+- Prebacivanje validacije u posebnu klasu koja nasleđuje `FormValidation` - generisanje klase komandom `php artisan make:request` https://laravel.com/docs/7.x/validation#form-request-validation
+- Pravila za validaciju https://laravel.com/docs/7.x/validation#available-validation-rules
+- Ispis grešaka u viewu https://laravel.com/docs/7.x/blade#validation-errors
+- Kreiranje modela i migracije zajedno komandom `php artisan make:model --migration NazivModela`
+- Definisanje stranog ključa upotrebom `$table->foreignId('model_id')->constrained()` https://laravel.com/docs/7.x/migrations#columns
+- Definisanje relacije između modela https://laravel.com/docs/7.x/eloquent-relationships#introduction
+- Upotreba relacija: `$model->relationship` vs `$model->relationship()` vs `Model::with('relationship')`
+### Dan 5 - Autentifikacija
+- Registracija: kreiranje kontrolera, forme za registraciju, hendlanje submita forme - kreiranje novog korisnika, upotreba `bcrypt($request->get('password'))` ili `Hash::make($request->get('password'))` za heširanje passworda, logovanje novokreiranog usera upotrebom `auth()->login($user)`
+- Login - kreiranje forme za login, hendlanje submita forme, upotreba `auth()->attempt(['email' => $request->get('email'), 'password'=>$request->get('password')])` za pokušaj logovanja. Ova funkcija će provjeriti da li u bazi postoji korisnik sa datim emailom, provjeriti da li se password poklapa i, ako da, pozvati `auth()->login($user)`
+- Logout - `auth()->logout()`
+- Ostale metode iz auth helpera: `auth()->user()` dobavlja trenutno ulogovanog usera koji je poslao request, `auth()->check()` provjerava da li je korisnik ulogovan i vraća true/false....
+- Upotreba `auth` i `guest` middlewarea za zabranu ruta ulogovanim/neulogovanim korisnicima. Middleware možemo postaviti na pojedinačne rute, na grupe ruta upotrebom Route::group ili na sve akcije kontrolera pisanjem `$this->middlware('middlewareName')`u konstruktoru kontrolera - https://laravel.com/docs/7.x/middleware
+### Dan 6
+- SMPT server, mailtrap, postavka slanja mailova upisivanjem podataka u .env fajl https://blog.mailtrap.io/send-email-in-laravel/#How_to_send_email_in_Laravel_70_using_SMTP
+- Generisanje Mail klase komandom `php artisan make:mail NazivMaila`, buildanje email poruke - zadavanje subjecta, prosleđivanje viewa (blade templatea), attachovanje fajlova, definisanje from adrese
+- Slanje emailova upotrebom `Mail::to($emailAddress/$user/$users)->send(new MailClass)` https://laravel.com/docs/7.x/mail
+- Sesija - definisanje session drivera (gdje će laravel čuvati podatke sa sesije - file, database (kreiranje sessions tabele), cookie itd), setovanje podataka na sesiju upotrebom session helpera `session(['key' => 'value'])` ili session metodom nad requestom `$request->session()->put('key', 'value')`; dobavljanje podataka sa sesiije upotrebom `session('key', 'default')` ili `$request->session()->get('key', 'default')` https://laravel.com/docs/7.x/session
